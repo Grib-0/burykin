@@ -2688,6 +2688,67 @@
                 }
             });
         });
+                // Плавная прокрутка и пульсация для кнопок "Обсудить проект"
+        document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"], a[href="#footer-contacts"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Находим именно элемент с телефоном (первый контакт)
+                const phoneContact = document.getElementById('phone-contact');
+                
+                if (phoneContact) {
+                    // Получаем позицию элемента с телефоном
+                    const phoneRect = phoneContact.getBoundingClientRect();
+                    const absolutePhoneTop = window.pageYOffset + phoneRect.top;
+                    
+                    // Определяем отступы
+                    let headerHeight = 80; // Высота шапки
+                    let mobileContactsHeight = 0;
+                    
+                    // Если мобильная версия, учитываем высоту мобильной плашки
+                    if (window.innerWidth <= 768) {
+                        const mobileContacts = document.querySelector('.mobile-contacts');
+                        if (mobileContacts) {
+                            mobileContactsHeight = mobileContacts.offsetHeight;
+                        }
+                    }
+                    
+                    // Общая высота элементов, которые могут перекрывать
+                    const totalOffset = headerHeight + mobileContactsHeight + 20; // +20px для запаса
+                    
+                    // Прокручиваем так, чтобы телефон был виден полностью
+                    window.scrollTo({
+                        top: absolutePhoneTop - totalOffset,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Ждем завершения прокрутки и запускаем пульсацию
+                    setTimeout(() => {
+                        // Находим email элемент
+                        const emailContact = document.getElementById('email-contact');
+                        
+                        // Функция для пульсации элемента
+                        function pulseElement(element, delay = 0) {
+                            if (!element) return;
+                            
+                            setTimeout(() => {
+                                element.classList.remove('pulsing');
+                                // Перезапускаем анимацию
+                                void element.offsetWidth;
+                                element.classList.add('pulsing');
+                                
+                                // Убираем класс после анимации
+                                setTimeout(() => {
+                                    element.classList.remove('pulsing');
+                                }, 3000);
+                            }, delay);
+                        }
+                        
+                        
+                    }, 800);
+                }
+            });
+        });
     </script>
 </body>
 </html>
