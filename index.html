@@ -2042,6 +2042,57 @@ body.dark-theme {
             pointer-events: auto !important;
             cursor: pointer !important;
         }
+
+        /* Добавьте эти стили в CSS */
+        .mobile-contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .mobile-email-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--color-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background-color: rgba(61, 113, 127, 0.1);
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .mobile-email-link i {
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .mobile-email-link:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .mobile-email-link:hover i {
+            color: var(--color-white);
+        }
+
+        /* Стили для темной темы */
+        body.dark-theme .mobile-email-link {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        body.dark-theme .mobile-email-link i {
+            color: var(--color-primary);
+        }
+
+        body.dark-theme .mobile-email-link:hover {
+            background-color: var(--color-primary);
+        }
     </style>
 </head>
 <body>
@@ -2086,14 +2137,25 @@ body.dark-theme {
             
             <!-- Мобильная контактная плашка (только на мобильных) -->
             <div class="mobile-contacts mobile-only">
-                <a href="tel:+79615320410" class="mobile-phone-link">
-                    <i class="fas fa-phone-alt"></i>
-                    <span class="requisite-value" id="phone-contact">
-                        <a href="tel:+79615320410" class="no-smooth-scroll">+7 (961) 532-04-10</a>
-                    </span>
-                    <span class="requisite-value" id="email-contact">
-                        <a href="mailto:denis_burykin@mail.ru" class="email-link no-smooth-scroll">denis_burykin@mail.ru</a>
-                    </span>
+                <div class="mobile-contact-wrapper">
+                    <a href="tel:+79615320410" class="mobile-phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+7 (961) 532-04-10</span>
+                    </a>
+                    
+                    <a href="mailto:denis_burykin@mail.ru" class="mobile-email-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>denis_burykin@mail.ru</span>
+                    </a>
+                </div>
+                
+                <div class="mobile-social">
+                    <a href="https://wa.me/79615320410" target="_blank" class="mobile-social-btn whatsapp-btn" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/ваш_телеграм" target="_blank" class="mobile-social-btn telegram-btn" title="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
                 </div>
             </div>
         </header>
@@ -2520,7 +2582,7 @@ body.dark-theme {
                         <li class="requisite-item">
                             <span class="requisite-label">E-mail:</span>
                             <span class="requisite-value" id="email-contact">
-                                <a href="mailto:denis_burykin@mail.ru" class="email-link">denis_burykin@mail.ru</a>
+                                <a href="mailto:denis_burykin@mail.ru" class="email-link no-smooth-scroll">denis_burykin@mail.ru</a>
                             </span>
                         </li>
                     </ul>
