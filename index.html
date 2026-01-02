@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ИП Бурыкин</title>
+    <title>ИП Денис Бурыкин | Главная</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><text x='50' y='68' font-size='70' font-family='Arial, sans-serif' font-weight='bold' text-anchor='middle' fill='%230c2939'>Б</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,19 +19,27 @@
             --color-light-gray: #e9ecef;
         }
 
-        /* Фон в стиле архитектурных чертежей */
-        body {
-            background-color: var(--color-white);
-            background-image: 
-                /* Основная сетка */
-                linear-gradient(to right, rgba(61, 113, 127, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(61, 113, 127, 0.05) 1px, transparent 1px),
-                /* Угловые маркеры */
-                linear-gradient(45deg, transparent 49.5%, rgba(61, 113, 127, 0.1) 49.5%, rgba(61, 113, 127, 0.1) 50.5%, transparent 50.5%),
-                linear-gradient(-45deg, transparent 49.5%, rgba(61, 113, 127, 0.1) 49.5%, rgba(61, 113, 127, 0.1) 50.5%, transparent 50.5%);
-            background-size: 50px 50px, 50px 50px, 100px 100px, 100px 100px;
-            background-position: 0 0, 0 0, 0 0, 0 0;
-        }
+/* Фон в стиле архитектурных чертежей */
+body {
+    background-color: var(--color-white);
+    background-image: 
+        /* Основная сетка */
+        linear-gradient(to right, rgba(61, 113, 127, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(61, 113, 127, 0.05) 1px, transparent 1px),
+        /* Угловые маркеры */
+        linear-gradient(45deg, transparent 49.5%, rgba(61, 113, 127, 0.1) 49.5%, rgba(61, 113, 127, 0.1) 50.5%, transparent 50.5%),
+        linear-gradient(-45deg, transparent 49.5%, rgba(61, 113, 127, 0.1) 49.5%, rgba(61, 113, 127, 0.1) 50.5%, transparent 50.5%);
+    background-size: 50px 50px, 50px 50px, 100px 100px, 100px 100px;
+    background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+body.dark-theme {
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(45deg, transparent 49.5%, rgba(255, 255, 255, 0.05) 49.5%, rgba(255, 255, 255, 0.05) 50.5%, transparent 50.5%),
+        linear-gradient(-45deg, transparent 49.5%, rgba(255, 255, 255, 0.05) 49.5%, rgba(255, 255, 255, 0.05) 50.5%, transparent 50.5%);
+}
 
         body.dark-theme {
             --color-white: #000000; /* черный */
@@ -46,10 +54,6 @@
          /* Темная тема - дополнительные исправления */
         body.dark-theme .page-header h1,
         body.dark-theme .page-header p,
-        body.dark-theme .about-text h3,
-        body.dark-theme .about-text p,
-        body.dark-theme .timeline-content h4,
-        body.dark-theme .timeline-content p,
         body.dark-theme .footer-col h3,
         body.dark-theme .footer-logo,
         body.dark-theme .footer-col p,
@@ -78,11 +82,6 @@
         /* Для текста в таймлайне на странице "Обо мне" */
         body.dark-theme .timeline-year {
             color: var(--color-primary) !important;
-        }
-
-        /* Для текста в формах */
-        body.dark-theme .form-group label {
-            color: #dddddd !important;
         }
 
         /* Для разделителей в темной теме */
@@ -628,37 +627,6 @@
             min-width: 300px;
         }
 
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--color-dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid var(--color-light-gray);
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--color-primary);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
         /* Футер */
         footer {
             background-color: var(--color-dark);
@@ -828,42 +796,10 @@
 
         }
 
-        .contact-page .page-header h1 {
-            color: var(--color-white);
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-page .page-header p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        .contact-page .contact-info {
-            margin-top: 50px;
-        }
-
-        .map-container {
-            margin-top: 50px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
         /* Адаптивность */
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.8rem;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .about-img, .about-text {
-                width: 100%;
             }
         }
 
@@ -990,21 +926,6 @@
         
         .stat-number {
             font-size: 2rem;
-        }
-        
-        /* Улучшаем отображение форм */
-        .form-control {
-            padding: 12px;
-            font-size: 14px;
-        }
-        
-        /* Оптимизируем таймлайн */
-        .timeline-item {
-            flex-direction: column;
-        }
-        
-        .timeline-year {
-            margin-bottom: 10px;
         }
     }
 
@@ -1274,16 +1195,6 @@
         body.dark-theme .tag {
             background-color: #1a1a1a;
             color: #3d717f;
-        }
-
-        body.dark-theme .form-control {
-            background-color: #111111;
-            border-color: #333333;
-            color: #ffffff;
-        }
-
-        body.dark-theme .form-control:focus {
-            border-color: var(--color-primary);
         }
 
         body.dark-theme .contact-icon {
@@ -2097,7 +2008,7 @@
             </div>
             <div class="container hero-content">
                 <div class="hero-frame">
-                    <h1>Портфолио</h1>
+                    <h1>Наше портфолио</h1>
                     <p>Реализованные проекты в области архитектурного проектирования и дизайна</p>
                     <div class="hero-btns">
                         <a href="#footer-contacts" class="btn btn-outline">Обсудить проект</a>
@@ -2309,8 +2220,6 @@
                     <a href="#home" class="footer-logo nav-link" data-page="home">ИП<span>Бурыкин</span></a>
                     <p>Проектирование и изыскание в строительстве.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -2496,38 +2405,6 @@
                     });
                 }
             });
-         // Функционал для FAQ (раскрывающиеся ответы)
-                const faqQuestions = document.querySelectorAll('.faq-question');
-
-                faqQuestions.forEach(question => {
-                    question.addEventListener('click', () => {
-                        // Закрываем другие открытые вопросы
-                        faqQuestions.forEach(otherQuestion => {
-                            if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
-                                otherQuestion.classList.remove('active');
-                                otherQuestion.nextElementSibling.classList.remove('active');
-                            }
-                        });
-                        
-                        // Переключаем текущий вопрос
-                        question.classList.toggle('active');
-                        const answer = question.nextElementSibling;
-                        answer.classList.toggle('active');
-                        
-                        // Плавная прокрутка к открытому вопросу на мобильных устройствах
-                        if (window.innerWidth < 768 && question.classList.contains('active')) {
-                            setTimeout(() => {
-                                question.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }, 300);
-                        }
-                    });
-                });
-
-                // Открываем первый вопрос по умолчанию
-                if (faqQuestions.length > 0) {
-                    faqQuestions[0].classList.add('active');
-                    faqQuestions[0].nextElementSibling.classList.add('active');
-                }
         });
                 // Переключение темы
         const themeToggle = document.getElementById('themeToggle');
@@ -2597,54 +2474,7 @@
                     const isDark = body.classList.contains('dark-theme');
                     updateThemeIcon(isDark);
                 });
-                // Функционал для FAQ (Популярные вопросы)
-        document.addEventListener('DOMContentLoaded', function() {
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', function() {
-                    // Находим родительский элемент FAQ и ответ
-                    const faqItem = this.parentElement;
-                    const answer = this.nextElementSibling;
-                    
-                    // Закрываем все другие открытые FAQ
-                    document.querySelectorAll('.faq-item').forEach(item => {
-                        if (item !== faqItem) {
-                            item.classList.remove('active');
-                            item.querySelector('.faq-question').classList.remove('active');
-                            item.querySelector('.faq-answer').style.maxHeight = '0';
-                            item.querySelector('.faq-answer').style.padding = '0';
-                        }
-                    });
-                    
-                    // Переключаем текущий FAQ
-                    const isActive = faqItem.classList.contains('active');
-                    
-                    if (isActive) {
-                        // Закрываем
-                        faqItem.classList.remove('active');
-                        this.classList.remove('active');
-                        answer.style.maxHeight = '0';
-                        answer.style.padding = '0';
-                    } else {
-                        // Открываем
-                        faqItem.classList.add('active');
-                        this.classList.add('active');
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                        answer.style.padding = '20px 25px';
-                    }
-                });
-            });
-            
-            // Анимация иконки шеврона
-            document.querySelectorAll('.faq-question i').forEach(icon => {
-                const parent = icon.parentElement;
-                parent.addEventListener('click', function() {
-                    const isActive = this.classList.contains('active');
-                    icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
-                });
-            });
-        });
+
                 // Плавная прокрутка для кнопок "Обсудить проект"
         document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"]').forEach(button => {
             button.addEventListener('click', function(e) {
@@ -2767,5 +2597,3 @@
     </script>
 </body>
 </html>
-
-
