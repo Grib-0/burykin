@@ -1814,6 +1814,38 @@
         .nav-menu.active ~ .mobile-contacts {
             display: none;
         }
+        /* Анимация пульсации для выделения контактов */
+        @keyframes pulse-contact {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(61, 113, 127, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(61, 113, 127, 0);
+            }
+        }
+
+        /* Темная тема для анимации */
+        body.dark-theme .requisite-value.pulsing a {
+            color: var(--color-primary) !important;
+            font-weight: 600;
+        }
+
+        .requisite-value.pulsing {
+            animation: pulse-contact 1s ease-in-out 3; /* 3 раза пульсация */
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: rgba(61, 113, 127, 0.1);
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .requisite-value.pulsing a {
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1886,7 +1918,7 @@
                     <p>Проектирование и изыскание в строительстве</p>
                     <div class="hero-btns">
                         <a href="#portfolio" class="btn nav-link" data-page="portfolio">Смотреть работы</a>
-                        <a href="#contact" class="btn btn-outline nav-link" data-page="contact">Обсудить проект</a>
+                        <a href="#footer-contacts" class="btn btn-outline">Обсудить проект</a>
                     </div>
                 </div>
             </div>
@@ -2053,7 +2085,7 @@
                     <h1>Наше портфолио</h1>
                     <p>Реализованные проекты в области архитектурного проектирования и дизайна</p>
                     <div class="hero-btns">
-                        <a href="#contact" class="btn btn-outline nav-link" data-page="contact">Обсудить проект</a>
+                        <a href="#footer-contacts" class="btn btn-outline">Обсудить проект</a>
                     </div>
                 </div>
             </div>
@@ -2255,7 +2287,7 @@
     </div>
 
     <!-- Футер -->
-    <footer>
+    <footer id="footer-contacts">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
@@ -2283,11 +2315,11 @@
                         </li>
                         <li class="requisite-item">
                             <span class="requisite-label">Контакты:</span>
-                            <span class="requisite-value">
+                            <span class="requisite-value" id="phone-contact">
                                 тел.: <a href="tel:+79615320410">+7 (961) 532-04-10</a>
                             </span>
                             <br>
-                            <span class="requisite-value">
+                            <span class="requisite-value" id="email-contact">
                                 E-mail: <a href="mailto:denis_burykin@mail.ru">denis_burykin@mail.ru</a>
                             </span>
                         </li>
@@ -2596,6 +2628,64 @@
                     const isActive = this.classList.contains('active');
                     icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
                 });
+            });
+        });
+                // Плавная прокрутка для кнопок "Обсудить проект"
+        document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const footer = document.getElementById('footer-contacts');
+                if (footer) {
+                    window.scrollTo({
+                        top: footer.offsetTop - 80, // Учитываем высоту фиксированной шапки
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+                // Плавная прокрутка и пульсация для кнопок "Обсудить проект"
+        document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"], a[href="#footer-contacts"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const footer = document.getElementById('footer-contacts');
+                if (footer) {
+                    window.scrollTo({
+                        top: footer.offsetTop - 80, // Учитываем высоту фиксированной шапки
+                        behavior: 'smooth'
+                    });
+                    
+                    // Ждем завершения прокрутки и запускаем пульсацию
+                    setTimeout(() => {
+                        // Находим элементы контактов
+                        const phoneContact = document.getElementById('phone-contact');
+                        const emailContact = document.getElementById('email-contact');
+                        
+                        // Удаляем предыдущие классы пульсации
+                        if (phoneContact) phoneContact.classList.remove('pulsing');
+                        if (emailContact) emailContact.classList.remove('pulsing');
+                        
+                        // Добавляем классы пульсации
+                        setTimeout(() => {
+                            if (phoneContact) {
+                                phoneContact.classList.add('pulsing');
+                                // Убираем класс после анимации
+                                setTimeout(() => {
+                                    phoneContact.classList.remove('pulsing');
+                                }, 3000);
+                            }
+                            
+                            if (emailContact) {
+                                emailContact.classList.add('pulsing');
+                                // Убираем класс после анимации
+                                setTimeout(() => {
+                                    emailContact.classList.remove('pulsing');
+                                }, 3000);
+                            }
+                        }, 100);
+                    }, 800); // Даем время на прокрутку
+                }
             });
         });
     </script>
