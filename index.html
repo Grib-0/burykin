@@ -757,7 +757,6 @@ body.dark-theme {
         .portfolio-item.hidden {
             opacity: 0;
             transform: translateY(20px);
-            pointer-events: none;
         }
 
         .portfolio-page section:not(.hero) {
@@ -1121,7 +1120,6 @@ body.dark-theme {
             height: 100%;
             background: linear-gradient(135deg, var(--color-secondary), #000000);
             z-index: 9999;
-            pointer-events: none;
             opacity: 0;
             transform: scale(0);
             animation: theme-flood 1.5s ease-out;
@@ -2903,6 +2901,27 @@ body.dark-theme {
 
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', toggleScrollToTopButton);
+    
+            // Специальный обработчик для почтовых ссылок, который ВОССТАНАВЛИВАЕТ их работу
+        document.querySelectorAll('a[href^="mailto:"]').forEach(mailLink => {
+            // Удаляем ВСЕ существующие обработчики click
+            mailLink.replaceWith(mailLink.cloneNode(true));
+            
+            // Добавляем новый, который точно разрешит переход
+            const newLink = document.querySelector(`a[href="${mailLink.getAttribute('href')}"]`);
+            if (newLink) {
+                newLink.addEventListener('click', function(e) {
+                    console.log('Почтовая ссылка кликнута:', this.href);
+                    // НИКАКОГО e.preventDefault()!
+                    // Разрешаем браузеру открыть почтовый клиент
+                });
+            }
+        });
+
+        // Аналогично для телефонных ссылок
+        document.querySelectorAll('a[href^="tel:"]').forEach(telLink => {
+            telLink.replaceWith(telLink.cloneNode(true));
+        });
     </script>
 </body>
 </html>
