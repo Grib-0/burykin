@@ -1771,6 +1771,71 @@ body.dark-theme {
             font-weight: 600;
             text-decoration: none !important;
         }
+
+                /* Стили для кнопки "Наверх" */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--color-secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Темная тема */
+        body.dark-theme .scroll-to-top {
+            background-color: var(--color-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-theme .scroll-to-top:hover {
+            background-color: #2a5b68;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 90px; /* Учитываем мобильную контактную плашку */
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .scroll-to-top {
+                bottom: 100px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+        }
         
     </style>
 </head>
@@ -2266,6 +2331,11 @@ body.dark-theme {
         </div>
     </footer>
 
+            <!-- Кнопка "Наверх" -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
     <script>
         // Мобильное меню
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -2589,14 +2659,38 @@ body.dark-theme {
                                 }, 3000);
                             }, delay);
                         }
-                        
-                        
                     }, 800);
                 }
             });
         });
+                // Кнопка "Наверх"
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        // Функция для показа/скрытия кнопки
+        function toggleScrollToTopButton() {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        }
+
+        // Функция для прокрутки наверх
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Слушаем событие прокрутки
+        window.addEventListener('scroll', toggleScrollToTopButton);
+
+        // Добавляем обработчик клика на кнопку
+        scrollToTopBtn.addEventListener('click', scrollToTop);
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', toggleScrollToTopButton);
     </script>
 </body>
 </html>
-
-
