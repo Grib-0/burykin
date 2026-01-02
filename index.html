@@ -2001,7 +2001,7 @@ body.dark-theme {
             text-decoration: underline;
         }
 
-  
+        /* Добавьте в CSS */
         .requisite-value.pulsing {
             animation: pulse-contact 1s ease-in-out 3; /* 3 раза пульсация */
             padding: 8px 15px;
@@ -2038,6 +2038,11 @@ body.dark-theme {
                 transform: scale(1.05);
                 box-shadow: 0 0 0 10px rgba(108, 168, 184, 0);
             }
+        }
+
+        .email-link, .requisite-value a[href^="mailto:"] {
+            pointer-events: auto !important;
+            cursor: pointer !important;
         }
     </style>
 </head>
