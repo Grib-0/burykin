@@ -1772,7 +1772,7 @@ body.dark-theme {
             text-decoration: none !important;
         }
 
-                /* Стили для кнопки "Наверх" */
+        /* Стили для кнопки "Наверх" */
         .scroll-to-top {
             position: fixed;
             bottom: 30px;
@@ -1807,16 +1807,6 @@ body.dark-theme {
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Темная тема */
-        body.dark-theme .scroll-to-top {
-            background-color: var(--color-primary);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-theme .scroll-to-top:hover {
-            background-color: #2a5b68;
-        }
-
         /* Адаптивность */
         @media (max-width: 768px) {
             .scroll-to-top {
@@ -1836,7 +1826,26 @@ body.dark-theme {
                 height: 40px;
             }
         }
-        
+
+        /* Темная тема для кнопки "Наверх" */
+        body.dark-theme .scroll-to-top {
+            background-color: var(--color-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Цвет иконки стрелочки в темной теме */
+        body.dark-theme .scroll-to-top i {
+            color: var(--color-white) !important; /* Белая стрелочка на темном фоне */
+        }
+
+        /* Ховер эффект в темной теме */
+        body.dark-theme .scroll-to-top:hover {
+            background-color: #2a5b68;
+        }
+
+        body.dark-theme .scroll-to-top:hover i {
+            color: var(--color-white) !important; /* Белая стрелочка при наведении */
+        }
     </style>
 </head>
 <body>
