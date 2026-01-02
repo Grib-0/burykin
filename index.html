@@ -2088,15 +2088,12 @@ body.dark-theme {
             <div class="mobile-contacts mobile-only">
                 <a href="tel:+79615320410" class="mobile-phone-link">
                     <i class="fas fa-phone-alt"></i>
-                    <span>+7 (961) 532-04-10</span>
-                </a>
-                <div class="mobile-social">
-                    <a href="https://wa.me/79615320410" target="_blank" class="mobile-social-btn whatsapp-btn" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://t.me/ваш_телеграм" target="_blank" class="mobile-social-btn telegram-btn" title="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
+                    <span class="requisite-value" id="phone-contact">
+                        <a href="tel:+79615320410" class="no-smooth-scroll">+7 (961) 532-04-10</a>
+                    </span>
+                    <span class="requisite-value" id="email-contact">
+                        <a href="mailto:denis_burykin@mail.ru" class="email-link no-smooth-scroll">denis_burykin@mail.ru</a>
+                    </span>
                 </div>
             </div>
         </header>
@@ -2665,7 +2662,7 @@ body.dark-theme {
         }
         
         // Плавная прокрутка для якорных ссылок на главной странице
-        document.querySelectorAll('a[href^="#"]:not(.nav-link):not([href^="mailto"]):not([href^="tel"])').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]:not(.no-smooth-scroll)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 
                 const targetId = this.getAttribute('href');
@@ -2901,27 +2898,6 @@ body.dark-theme {
 
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', toggleScrollToTopButton);
-    
-            // Специальный обработчик для почтовых ссылок, который ВОССТАНАВЛИВАЕТ их работу
-        document.querySelectorAll('a[href^="mailto:"]').forEach(mailLink => {
-            // Удаляем ВСЕ существующие обработчики click
-            mailLink.replaceWith(mailLink.cloneNode(true));
-            
-            // Добавляем новый, который точно разрешит переход
-            const newLink = document.querySelector(`a[href="${mailLink.getAttribute('href')}"]`);
-            if (newLink) {
-                newLink.addEventListener('click', function(e) {
-                    console.log('Почтовая ссылка кликнута:', this.href);
-                    // НИКАКОГО e.preventDefault()!
-                    // Разрешаем браузеру открыть почтовый клиент
-                });
-            }
-        });
-
-        // Аналогично для телефонных ссылок
-        document.querySelectorAll('a[href^="tel:"]').forEach(telLink => {
-            telLink.replaceWith(telLink.cloneNode(true));
-        });
     </script>
 </body>
 </html>
