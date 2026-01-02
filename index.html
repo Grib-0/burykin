@@ -2669,7 +2669,6 @@ body.dark-theme {
         // Плавная прокрутка для якорных ссылок на главной странице
         document.querySelectorAll('a[href^="#"]:not(.nav-link):not([href^="mailto"]):not([href^="tel"])').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
