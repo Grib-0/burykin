@@ -2197,7 +2197,7 @@ body.dark-theme {
                         </div>
                         <div class="portfolio-info">
                             <h3>Жилой дом на Старокубанской</h3>
-                            <p>Многоквартирный жилой дом и многоуровневый паркинг ул. Старокубанская</p>
+                            <p>Многоквартирный жилой дом и многоуровневый паркинг на ул. Старокубанская.</p>
                             <div class="portfolio-tags">
                                 <span class="tag">Жилые</span>
                                 <span class="tag">Комплекс</span>
@@ -2238,7 +2238,7 @@ body.dark-theme {
                             <i class="fas fa-train"></i>
                         </div>
                         <h3>Линейные обьекты</h3>
-                        <p>Протяжённые сооружения, которые служат для транспортировки энергии, веществ, информации или людей.</p>
+                        <p>Протяжённые сооружения, которые служат для транспортировки энергии, веществ, информации или людей</p>
                     </div>
                 </div>
             </div>
@@ -2888,12 +2888,28 @@ body.dark-theme {
             }
         });
 
-        // Принудительное включение pointer-events
-        document.querySelectorAll('.email-link').forEach(link => {
-            link.style.pointerEvents = 'auto';
-            link.style.cursor = 'pointer';
+                // Принудительное включение pointer-events
+                document.querySelectorAll('.email-link').forEach(link => {
+                    link.style.pointerEvents = 'auto';
+                    link.style.cursor = 'pointer';
+                });
+                // Исправление для почтовых ссылок
+        document.addEventListener('DOMContentLoaded', function() {
+            // Принудительно включаем почтовые ссылки
+            const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+            emailLinks.forEach(link => {
+                link.style.pointerEvents = 'auto';
+                link.style.cursor = 'pointer';
+                
+                // Обработчик для тестирования
+                link.addEventListener('click', function(e) {
+                    console.log('Email link clicked:', this.href);
+                });
+            });
+            
+            // Тестовая кнопка для проверки
+            console.log('Found email links:', emailLinks.length);
         });
     </script>
 </body>
 </html>
-
