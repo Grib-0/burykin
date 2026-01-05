@@ -2439,8 +2439,6 @@
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', toggleScrollToTopButton);
 
-        // Добавить после основного кода:
-
         // Модальное окно формы
         const projectModal = document.getElementById('projectModal');
         const closeModal = document.getElementById('closeModal');
@@ -2499,21 +2497,22 @@
             
             // Формируем текст сообщения
             const message = `
-        🎯 *Новая заявка с сайта ИП Бурыкин*
+🎯 *Новая заявка с сайта ИП Бурыкин*
 
-        📋 *Стадийность:* ${formData.staging}
-        🏗️ *Этажность:* ${formData.floors}
-        🎯 *Назначение:* ${formData.purpose}
-        📐 *Общая площадь:* ${formData.area} м²
-        📝 *Дополнительно:* ${formData.description}
-        📞 *Контакт:* ${formData.contact}
+📋 *Стадийность:* ${formData.staging}
+🏗️ *Этажность:* ${formData.floors}
+🎯 *Назначение:* ${formData.purpose}
+📐 *Общая площадь:* ${formData.area} м²
+📝 *Дополнительно:* ${formData.description}
+📞 *Контакт:* ${formData.contact}
 
-        _Дата: ${new Date().toLocaleString('ru-RU')}_
+_Дата: ${new Date().toLocaleString('ru-RU')}_
             `;
             
             // Параметры для отправки
             const botToken = '8442634078:AAF4sEgxBKb8geQvEJ-nYa4lgdNOmMscdRk';
-            const chatId = '@Yshiya'; // или ваш chat_id
+            // Отправляем напрямую пользователю по ID (5337612833)
+            const chatId = '5337612833';
             
             // Кодируем сообщение для URL
             const encodedMessage = encodeURIComponent(message);
@@ -2526,29 +2525,35 @@
                 submitBtn.textContent = 'Отправка...';
                 submitBtn.disabled = true;
                 
+                console.log('Отправляем запрос на URL:', url); // Для отладки
+                
                 // Отправляем запрос
                 const response = await fetch(url);
+                const data = await response.json();
                 
-                if (response.ok) {
+                console.log('Ответ от Telegram:', data); // Для отладки
+                
+                if (response.ok && data.ok) {
                     // Успешная отправка
                     alert('✅ Ваша заявка успешно отправлена! Мы свяжемся с вами в течение 2-3 рабочих дней.');
                     projectForm.reset();
                     closeModalFunc();
                 } else {
-                    throw new Error('Ошибка отправки');
+                    // Получаем детали ошибки
+                    let errorMessage = 'Ошибка отправки';
+                    if (data.description) {
+                        errorMessage += ': ' + data.description;
+                    }
+                    throw new Error(errorMessage);
                 }
             } catch (error) {
                 console.error('Ошибка:', error);
-                alert('⚠️ Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз или свяжитесь другим способом.');
+                alert('⚠️ Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.');
             } finally {
                 // Возвращаем кнопку в исходное состояние
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
-        });
-                // Обработчики для всех кнопок открытия модалки
-        document.querySelectorAll('.open-modal-btn').forEach(btn => {
-            btn.addEventListener('click', openModal);
         });
     </script>
 </body>
