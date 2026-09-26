@@ -448,11 +448,6 @@
             transform: translateY(-10px);
         }
 
-        .portfolio-item.hidden {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
         .portfolio-img {
             height: 250px;
             overflow: hidden;
@@ -1801,9 +1796,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Контакты на главной -->
-</section>
     </div>
 
     <!-- Страница "Портфолио" -->
@@ -1825,14 +1817,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Фильтр проектов -->
-        <section>
-            <div class="container">
-                <!-- ... остальной контент портфолио ... -->
-            </div>
-        </section>
-
 
         <!-- Фильтр проектов -->
         <section>
@@ -2219,26 +2203,6 @@
             });
         });
 
-        
-        // Обработка форм
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Спасибо! Ваше сообщение отправлено. Я свяжусь с вами в ближайшее время.');
-                contactForm.reset();
-            });
-        }
-        
-        const contactPageForm = document.getElementById('contactPageForm');
-        if (contactPageForm) {
-            contactPageForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Спасибо! Ваше сообщение отправлено. Я свяжусь с вами в ближайшее время для обсуждения деталей проекта.');
-                contactPageForm.reset();
-            });
-        }
-        
         // Плавная прокрутка для якорных ссылок на главной странице
         document.querySelectorAll('a[href^="#"]:not(.no-smooth-scroll)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -2336,80 +2300,6 @@
             }, 300);
         }
     }
-
-        // Плавная прокрутка для кнопок "Обсудить проект"
-        document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"], a[href="#footer-contacts"]').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const footer = document.getElementById('footer-contacts');
-                if (footer) {
-                    // Определяем, мобильное ли устройство
-                    const isMobile = window.innerWidth <= 768;
-                    // Высота шапки
-                    const headerHeight = 80;
-                    // Высота мобильной плашки с контактами (примерно 70px)
-                    const mobileContactsHeight = 70;
-                    
-                    // Рассчитываем конечную позицию
-                    let scrollPosition = footer.offsetTop - headerHeight;
-                    
-                    // На мобильных добавляем дополнительный отступ для плашки с контактами
-                    if (isMobile) {
-                        scrollPosition -= mobileContactsHeight;
-                    }
-                    
-                    window.scrollTo({
-                        top: scrollPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-                // Плавная прокрутка и пульсация для кнопок "Обсудить проект"
-        document.querySelectorAll('.btn.btn-outline[href="#footer-contacts"], a[href="#footer-contacts"]').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const footer = document.getElementById('footer-contacts');
-                if (footer) {
-                    window.scrollTo({
-                        top: footer.offsetTop - 80, // Учитываем высоту фиксированной шапки
-                        behavior: 'smooth'
-                    });
-                    
-                    // Ждем завершения прокрутки и запускаем пульсацию
-                    setTimeout(() => {
-                        // Находим элементы контактов
-                        const phoneContact = document.getElementById('phone-contact');
-                        const emailContact = document.getElementById('email-contact');
-                        
-                        // Удаляем предыдущие классы пульсации
-                        if (phoneContact) phoneContact.classList.remove('pulsing');
-                        if (emailContact) emailContact.classList.remove('pulsing');
-                        
-                        // Добавляем классы пульсации
-                        setTimeout(() => {
-                            if (phoneContact) {
-                                phoneContact.classList.add('pulsing');
-                                // Убираем класс после анимации
-                                setTimeout(() => {
-                                    phoneContact.classList.remove('pulsing');
-                                }, 3000);
-                            }
-                            
-                            if (emailContact) {
-                                emailContact.classList.add('pulsing');
-                                // Убираем класс после анимации
-                                setTimeout(() => {
-                                    emailContact.classList.remove('pulsing');
-                                }, 3000);
-                            }
-                        }, 100);
-                    }, 800); // Даем время на прокрутку
-                }
-            });
-        });
                 // Кнопка "Наверх"
         const scrollToTopBtn = document.getElementById('scrollToTop');
 
@@ -2478,7 +2368,20 @@
             }
         });
 
-        // Отправка формы в Telegram
+        // Отправка формы — через ваш серверный эндпоинт (POST-заглушка)
+        //
+        // ВАЖНО: раньше здесь был прямой вызов Telegram Bot API с токеном бота
+        // прямо в клиентском JS — это огромная дыра в безопасности, т.к. токен
+        // виден любому в исходном коде страницы. Токен нужно было отозвать
+        // через @BotFather.
+        //
+        // Теперь форма отправляет данные на ваш backend по адресу ниже.
+        // На сервере (Node.js / Vercel Function / Cloudflare Worker и т.д.)
+        // нужно: принять этот JSON, взять токен бота из переменной окружения
+        // и оттуда, уже с сервера, POST-ом отправить сообщение в Telegram API
+        // (https://api.telegram.org/bot<TOKEN>/sendMessage).
+        const LEAD_ENDPOINT = '/api/send-lead'; // замените на реальный адрес вашего бэкенда
+
         projectForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -2492,58 +2395,37 @@
                 purpose: document.getElementById('purpose').value,
                 area: document.getElementById('area').value,
                 description: document.getElementById('description').value || 'Не указано',
-                contact: document.getElementById('contact').value
+                contact: document.getElementById('contact').value,
+                submittedAt: new Date().toISOString()
             };
-            
-            // Формируем текст сообщения
-            const message = `
-🎯 *Новая заявка с сайта ИП Бурыкин*
-
-📋 *Стадийность:* ${formData.staging}
-🏗️ *Этажность:* ${formData.floors}
-🎯 *Назначение:* ${formData.purpose}
-📐 *Общая площадь:* ${formData.area} м²
-📝 *Дополнительно:* ${formData.description}
-📞 *Контакт:* ${formData.contact}
-
-_Дата: ${new Date().toLocaleString('ru-RU')}_
-            `;
-            
-            // Параметры для отправки
-            const botToken = '8442634078:AAF4sEgxBKb8geQvEJ-nYa4lgdNOmMscdRk';
-            // Отправляем напрямую пользователю по ID (5337612833)
-            const chatId = '5337612833';
-            
-            // Кодируем сообщение для URL
-            const encodedMessage = encodeURIComponent(message);
-            
-            // URL для отправки через Telegram Bot API
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodedMessage}&parse_mode=Markdown`;
             
             try {
                 // Показываем состояние загрузки
                 submitBtn.textContent = 'Отправка...';
                 submitBtn.disabled = true;
                 
-                console.log('Отправляем запрос на URL:', url); // Для отладки
+                const response = await fetch(LEAD_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
                 
-                // Отправляем запрос
-                const response = await fetch(url);
-                const data = await response.json();
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (_) {
+                    // тело ответа может быть пустым — это нормально
+                }
                 
-                console.log('Ответ от Telegram:', data); // Для отладки
-                
-                if (response.ok && data.ok) {
+                if (response.ok) {
                     // Успешная отправка
                     alert('✅ Ваша заявка успешно отправлена! Мы свяжемся с вами в течение 2-3 рабочих дней.');
                     projectForm.reset();
                     closeModalFunc();
                 } else {
-                    // Получаем детали ошибки
-                    let errorMessage = 'Ошибка отправки';
-                    if (data.description) {
-                        errorMessage += ': ' + data.description;
-                    }
+                    const errorMessage = (data && data.message) ? data.message : `Ошибка отправки (код ${response.status})`;
                     throw new Error(errorMessage);
                 }
             } catch (error) {
