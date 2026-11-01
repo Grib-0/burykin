@@ -2555,20 +2555,8 @@
                 closeModalFunc();
             }
         });
-
-        // Отправка формы — через ваш серверный эндпоинт (POST-заглушка)
-        //
-        // ВАЖНО: раньше здесь был прямой вызов Telegram Bot API с токеном бота
-        // прямо в клиентском JS — это огромная дыра в безопасности, т.к. токен
-        // виден любому в исходном коде страницы. Токен нужно было отозвать
-        // через @BotFather.
-        //
-        // Теперь форма отправляет данные на ваш backend по адресу ниже.
-        // На сервере (Node.js / Vercel Function / Cloudflare Worker и т.д.)
-        // нужно: принять этот JSON, взять токен бота из переменной окружения
-        // и оттуда, уже с сервера, POST-ом отправить сообщение в Telegram API
-        // (https://api.telegram.org/bot<TOKEN>/sendMessage).
-        const LEAD_ENDPOINT = '/api/send-lead'; // замените на реальный адрес вашего бэкенда
+        const TELEGRAM_CHAT_ID = '5337612833';
+        const TELEGRAM_BOT_TOKEN = '8442634078:AAF4sEgxBKb8geQvEJ-nYa4lgdNOmMscdRk';
 
         projectForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -2592,13 +2580,33 @@
                 submitBtn.textContent = 'Отправка...';
                 submitBtn.disabled = true;
                 
-                const response = await fetch(LEAD_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
+
+                const message = [
+                    '📩 НОВАЯ ЗАЯВКА С САЙТА',
+                    '',
+                    'Стадийность: ' + formData.staging,
+                    'Этажность: ' + formData.floors,
+                    'Назначение: ' + formData.purpose,
+                    'Площадь: ' + formData.area,
+                    'Описание: ' + formData.description,
+                    'Контакт: ' + formData.contact,
+                    'Дата: ' + new Date().toLocaleString('ru-RU')
+                ].join('\n');
+
+                const response = await fetch(
+                    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: message
+                        })
+                    }
+                );
+
                 
                 let data = null;
                 try {
