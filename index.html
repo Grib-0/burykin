@@ -1605,78 +1605,85 @@
             color: #ccc;
         }
 
-
-        /* Логотип и кнопка почты */
         .logo-with-email {
             display: flex;
             align-items: center;
             gap: 12px;
+            position: relative;
         }
 
-        /* Кнопка почты */
-        .logo-with-email a.header-email-btn[href^="mailto:"] {
+        .header-email-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 36px;
             height: 36px;
+            border: none;
             border-radius: 50%;
-
-            background-color: #ffffff;
-            color: #000000 !important;
-            border: 1.5px solid #000000;
-
-            text-decoration: none !important;
-            font-size: 17px;
+            background: #f0f0f0;
+            color: #000000;
+            font-size: 18px;
+            cursor: pointer;
             flex-shrink: 0;
-
-            transition: background-color 0.3s ease,
-                        transform 0.3s ease;
-
-            /* Пульсация первые 3 секунды */
-            animation: email-pulse 1s ease-in-out 3;
+            animation: emailPulse 1s ease-in-out 3;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* Чёткая чёрная иконка */
-        .logo-with-email .header-email-btn i {
-            color: #000000 !important;
-            opacity: 1;
+        .header-email-btn:hover {
+            background: #000000;
+            color: #ffffff;
         }
 
-        /* При наведении */
-        .logo-with-email a.header-email-btn:hover {
-            background-color: #eaf2f4;
-            color: #000000 !important;
-            transform: scale(1.08);
-        }
-
-        /* Плавная пульсация */
-        @keyframes email-pulse {
+        @keyframes emailPulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25);
             }
-
             50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.08);
+                transform: scale(1.12);
+                box-shadow: 0 0 0 6px rgba(0, 0, 0, 0);
             }
         }
 
-        /* Тёмная тема: иконка остаётся чёрной */
-        body.dark-theme .logo-with-email a.header-email-btn {
-            background-color: #ffffff;
-            color: #000000 !important;
-            border-color: #ffffff;
+        .email-copy-message {
+            position: absolute;
+            top: 100%;
+            left: 100%;
+            margin-left: -70px;
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: #0c2939;
+            color: #ffffff;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 1100;
         }
 
-        /* Уважение настроек уменьшения анимации */
+        .email-copy-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.dark-theme .header-email-btn {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        body.dark-theme .header-email-btn:hover {
+            background: #6ca8b8;
+            color: #000000;
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .logo-with-email a.header-email-btn {
+            .header-email-btn {
                 animation: none;
             }
         }
-
 
         /* Перелистывание нескольких изображений проекта без миниатюр в описании */
         .portfolio-img a { display: block; width: 100%; height: 100%; }
@@ -1692,16 +1699,22 @@
     <!-- Фиксированная навигация -->
         <header>
             <div class="container header-container">
-                <!-- Левая часть: Логотип -->             
+                <!-- Левая часть: Логотип -->               
                 <div class="logo-with-email">
                     <a href="#home" class="logo" data-page="home">ИП<span>Бурыкин</span></a>
 
-                    <a href="mailto:denis_burykin@mail.ru"
-                    class="header-email-btn"
-                    title="Написать на почту"
-                    aria-label="Написать на denis_burykin@mail.ru">
+                    <button type="button"
+                            class="header-email-btn"
+                            id="copyEmailBtn"
+                            title="Скопировать почту"
+                            aria-label="Скопировать адрес электронной почты">
                         <i class="fas fa-envelope"></i>
-                    </a>
+                    </button>
+
+                    <span class="email-copy-message" id="emailCopyMessage"
+                        role="status" aria-live="polite">
+                        Скопировано!
+                    </span>
                 </div>
                 <!-- Правая часть: Меню и кнопка темы -->
                 <div class="header-right">
@@ -4226,6 +4239,41 @@
                 submitBtn.disabled = false;
             }
         });
-    </script>
+
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        const emailCopyMessage = document.getElementById('emailCopyMessage');
+
+        let emailMessageTimeout;
+
+        copyEmailBtn.addEventListener('click', () => {
+            const email = 'denis_burykin@mail.ru';
+
+            // Открываем почтовое приложение
+            const mailLink = document.createElement('a');
+            mailLink.href = 'mailto:' + email;
+            mailLink.style.display = 'none';
+            document.body.appendChild(mailLink);
+
+            // Копируем адрес, если браузер разрешает
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email)
+                    .then(() => {
+                        emailCopyMessage.textContent = 'Почта скопирована!';
+                        emailCopyMessage.classList.add('show');
+
+                        clearTimeout(emailMessageTimeout);
+                        emailMessageTimeout = setTimeout(() => {
+                            emailCopyMessage.classList.remove('show');
+                        }, 2000);
+                    })
+                    .catch(() => {
+                        // Если копирование запрещено, приложение всё равно откроется
+                    });
+            }
+
+            mailLink.click();
+            mailLink.remove();
+        });
+    </script> 
 </body>
 </html>
