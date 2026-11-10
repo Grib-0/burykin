@@ -1604,15 +1604,105 @@
         body.dark-theme .text-link {
             color: #ccc;
         }
+
+
+        /* Логотип и кнопка почты */
+        .logo-with-email {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Кнопка почты */
+        .logo-with-email a.header-email-btn[href^="mailto:"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+
+            background-color: #ffffff;
+            color: #000000 !important;
+            border: 1.5px solid #000000;
+
+            text-decoration: none !important;
+            font-size: 17px;
+            flex-shrink: 0;
+
+            transition: background-color 0.3s ease,
+                        transform 0.3s ease;
+
+            /* Пульсация первые 3 секунды */
+            animation: email-pulse 1s ease-in-out 3;
+        }
+
+        /* Чёткая чёрная иконка */
+        .logo-with-email .header-email-btn i {
+            color: #000000 !important;
+            opacity: 1;
+        }
+
+        /* При наведении */
+        .logo-with-email a.header-email-btn:hover {
+            background-color: #eaf2f4;
+            color: #000000 !important;
+            transform: scale(1.08);
+        }
+
+        /* Плавная пульсация */
+        @keyframes email-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        /* Тёмная тема: иконка остаётся чёрной */
+        body.dark-theme .logo-with-email a.header-email-btn {
+            background-color: #ffffff;
+            color: #000000 !important;
+            border-color: #ffffff;
+        }
+
+        /* Уважение настроек уменьшения анимации */
+        @media (prefers-reduced-motion: reduce) {
+            .logo-with-email a.header-email-btn {
+                animation: none;
+            }
+        }
+
+
+        /* Перелистывание нескольких изображений проекта без миниатюр в описании */
+        .portfolio-img a { display: block; width: 100%; height: 100%; }
+        .project-photo-slider { position: relative; }
+        .project-photo-slider .project-photo-link { display: block; width: 100%; height: 100%; }
+        .project-photo-slider .project-slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 32px; height: 42px; border: 0; border-radius: 4px; background: rgba(12, 41, 57, 0.64); color: #fff; cursor: pointer; font-size: 20px; }
+        .project-photo-slider .project-slider-arrow:hover { background: rgba(12, 41, 57, 0.88); }
+        .project-photo-slider .project-slider-arrow.prev { left: 8px; }
+        .project-photo-slider .project-slider-arrow.next { right: 8px; }
     </style>
 </head>
 <body>
     <!-- Фиксированная навигация -->
         <header>
             <div class="container header-container">
-                <!-- Левая часть: Логотип -->
-                <a href="#home" class="logo" data-page="home">ИП<span>Бурыкин</span></a>
-                
+                <!-- Левая часть: Логотип -->             
+                <div class="logo-with-email">
+                    <a href="#home" class="logo" data-page="home">ИП<span>Бурыкин</span></a>
+
+                    <a href="mailto:denis_burykin@mail.ru"
+                    class="header-email-btn"
+                    title="Написать на почту"
+                    aria-label="Написать на denis_burykin@mail.ru">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
                 <!-- Правая часть: Меню и кнопка темы -->
                 <div class="header-right">
                     <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1637,9 +1727,9 @@
                 <section class="hero">
             <div class="hero-background">
                 <!-- Основное изображение для светлой темы -->
-                <img src="images/14.jpg" alt="Архитектурный фон" class="hero-bg-img light-bg">
+                <img src="images/new-projects/project-088.webp" alt="Архитектурный фон" class="hero-bg-img light-bg">
                 <!-- Изображение для темной темы -->
-                <img src="images/2.jpg" alt="Архитектурный фон в темной теме" class="hero-bg-img dark-bg">
+                <img src="images/new-projects/project-081.webp" alt="Архитектурный фон в темной теме" class="hero-bg-img dark-bg">
             </div>
             <div class="container hero-content">
                 <div class="hero-frame">
@@ -1677,6 +1767,8 @@
                                 <li><i class="fas fa-building"></i> ООО СПЕЦИАЛИЗИРОВАННЫЙ ЗАСТРОЙЩИК «ГК «ДОГМА»</li>
                                 <li><i class="fas fa-building"></i> ООО «Специализированный застройщик ГАММА Н»</li>
                                 <li><i class="fas fa-building"></i> ООО «СПЕЦИАЛИЗИРОВАННЫЙ ЗАСТРОЙЩИК «ГИК»</li>
+                                <li><i class="fas fa-building"></i> СК «Неометрия» (ЖК «Новороссийск»)</li>
+                                <li><i class="fas fa-building"></i> СК «Селена» (ДДУ «Эомест»)</li>
                             </ul>
                         </div>
                         
@@ -1718,42 +1810,39 @@
                 <div class="portfolio-grid">
                     <div class="portfolio-item">
                         <div class="portfolio-img">
-                            <img src="images/6.jpg" alt="Загородный дом">
+                            <img src="images/new-projects/project-041.webp" alt="Загородный дом">
                         </div>
                         <div class="portfolio-info">
                             <h3>Комплекс жилых домов в Джубге</h3>
                             <p>Многоквартирные жилые дома со встроенными помещениями коммерческого назначения</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="portfolio-item">
                         <div class="portfolio-img">
-                            <img src="images/4.jpg" alt="Офисное здание">
+                            <img src="images/new-projects/project-036.webp" alt="Офисное здание">
                         </div>
                         <div class="portfolio-info">
                             <h3>Реконструкция дома на Восточно-Кругликовской</h3>
                             <p>Реконструкция нежилого здания под многоквартирный жилой дом.</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Реконструкция</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="portfolio-item">
                         <div class="portfolio-img">
-                            <img src="images/1.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-126.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Жилой дом на Старокубанской</h3>
                             <p>Многоквартирный жилой дом и многоуровневый паркинг ул. Старокубанская</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
@@ -1804,7 +1893,8 @@
         <section class="hero">
             <div class="hero-background">
                 <!-- Основное изображение для светлой темы -->
-                <img src="images/112.jpg" alt="Фон портфолио" class="hero-bg-img">
+                <img src="images/new-projects/project-037.webp" alt="Фон портфолио" class="hero-bg-img light-bg">
+                <img src="images/new-projects/night-render.webp" alt="Фон портфолио в тёмной теме" class="hero-bg-img dark-bg">
             </div>
             <div class="container hero-content">
                 <div class="hero-frame">
@@ -1823,26 +1913,27 @@
             <div class="container">
                 <div class="portfolio-filter">
                     <button class="filter-btn active" data-filter="all">Все проекты</button>
-                    <button class="filter-btn" data-filter="residential">Жилые</button>
+                    <button class="filter-btn" data-filter="residential">Многоквартирные</button>
                     <button class="filter-btn" data-filter="private">Частные дома</button>
-                    <button class="filter-btn" data-filter="commercial">Коммерческие</button>
+                    <button class="filter-btn" data-filter="public">Общественные</button>
                     <button class="filter-btn" data-filter="social">Социальные</button>
                 </div>
                 
                 <!-- Сетка портфолио -->
                 <div class="portfolio-grid">
                     <!-- Проект 1 -->
-                    <div class="portfolio-item" data-category="residential commercial">
+                    <div class="portfolio-item" data-category="residential public">
                         <div class="portfolio-img">
-                            <img src="images/6.jpg" alt="Таунхаус">
+                            <img src="images/new-projects/project-041.webp" alt="Таунхаус">
                         </div>
                         <div class="portfolio-info">
                             <h3>Комплекс жилых домов в Джубге</h3>
                             <p>Многоквартирные жилые дома со встроенными помещениями коммерческого назначения</p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
-                                <span class="tag">Коммерческие</span>
+                                <span class="tag">Многоквартирные</span>
+                                <span class="tag">Общественные</span>
                             </div>
                         </div>
                     </div>
@@ -1850,14 +1941,15 @@
                     <!-- Проект 2 -->
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/4.jpg" alt="Торговый центр">
+                            <img src="images/new-projects/project-036.webp" alt="Торговый центр">
                         </div>
                         <div class="portfolio-info">
                             <h3>Реконструкция дома на Восточно-Кругликовской</h3>
                             <p>Реконструкция нежилого здания под многоквартирный жилой дом</p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Реконструкция</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
@@ -1865,14 +1957,15 @@
                     <!-- Проект 3 -->
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/1.jpg" alt="Интерьер квартиры">
+                            <img src="images/new-projects/project-126.webp" alt="Интерьер квартиры">
                         </div>
                         <div class="portfolio-info">
                             <h3>Жилой дом на Старокубанской</h3>
                             <p>Многоквартирный жилой дом и многоуровневый паркинг ул. Старокубанская</p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
@@ -1880,313 +1973,1798 @@
                     <!-- Проект 4 -->
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/3.jpg" alt="Линейные обьекты">
+                            <img src="images/new-projects/project-062.webp" alt="Линейные обьекты">
                         </div>
                         <div class="portfolio-info">
                             <h3>ЖК «Движение»</h3>
                             <p>Многоквартирные жилые дома на Западном обходе. Заказчик: ООО СЗ "Догма"</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                                         
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/7.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-009.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Трехэтажный дом</h3>
                             <p>Многоквартирный жилой дом по индивидуальному заказу</p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Реконструкция</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                                         
-                    <div class="portfolio-item" data-category="residential private">
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/5.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-007.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Частные дома</h3>
                             <p>Два дома 130 м³ на участке в 10 соток </p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/15.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-023.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/15.jpg" alt="Дом с балконом и верандой">
+                            <img src="images/new-projects/project-023.webp" alt="Дом с балконом и верандой">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом с балконом и верандой</h3>
                             <p>Двухэтажный дом из жёлтого кирпича с белыми деталями фасада, угловым балконом и кирпичным крыльцом</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Балкон</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/16.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-052.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/16.jpg" alt="Дом в стиле минимализм">
+                            <img src="images/new-projects/project-052.webp" alt="Дом в стиле минимализм">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом в стиле минимализм</h3>
                             <p>Двухэтажный дом с плоской кровлей, эксплуатируемой террасой и панорамными окнами на море</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">Минимализм</span>
-                                <span class="tag">Терраса</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/17.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-031.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/17.jpg" alt="Дом с навесом для автомобиля">
+                            <img src="images/new-projects/project-031.webp" alt="Дом с навесом для автомобиля">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом с навесом для автомобиля</h3>
                             <p>Двухэтажный дом из жёлтого кирпича с вальмовой кровлей, навесом для авто и благоустроенным палисадником</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Кирпич</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/18.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-139.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/18.jpg" alt="Дом с деревянным балконом">
+                            <img src="images/new-projects/project-139.webp" alt="Дом с деревянным балконом">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом с деревянным балконом</h3>
                             <p>Двухэтажный дом из жёлтого кирпича с серыми декоративными вставками и вальмовой кровлей</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Кирпич</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/19.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-128.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/19.jpg" alt="Ряд блокированных домов">
+                            <img src="images/new-projects/project-128.webp" alt="Ряд блокированных домов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Ряд блокированных домов</h3>
                             <p>Группа двухэтажных кирпичных домов с индивидуальными участками, воротами и въездами</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">Блокированные</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/20.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-077.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/20.jpg" alt="Дом в классическом стиле">
+                            <img src="images/new-projects/project-077.webp" alt="Дом в классическом стиле">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом в классическом стиле</h3>
                             <p>Двухэтажный дом с фасадом из светлого натурального камня, лепным декором и входной группой с портиком</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Классика</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/21.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-051.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/21.jpg" alt="Дом с мансардными окнами">
+                            <img src="images/new-projects/project-051.webp" alt="Дом с мансардными окнами">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом с мансардными окнами</h3>
                             <p>Дом из красного кирпича и штукатурки с черепичной кровлей, эркерами и террасой</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Черепица</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/22.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-053.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/22.jpg" alt="Дом с эркером-башенкой">
+                            <img src="images/new-projects/project-053.webp" alt="Дом с эркером-башенкой">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом с эркером-башенкой</h3>
                             <p>Двухэтажный дом из тёмного кирпича с круглым эркером, конической кровлей и террасой с балюстрадой</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Эркер</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/23.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-058.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/23.jpg" alt="Дом на две семьи">
+                            <img src="images/new-projects/project-058.webp" alt="Дом на две семьи">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дом на две семьи</h3>
                             <p>Двухэтажный дом с двумя входами и въездами, эркерами и деревянным балконом</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Дуплекс</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/24.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-035.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/24.jpg" alt="Одноэтажный дом с верандой">
+                            <img src="images/new-projects/project-035.webp" alt="Одноэтажный дом с верандой">
                         </div>
                         <div class="portfolio-info">
                             <h3>Одноэтажный дом с верандой</h3>
                             <p>Одноэтажный дом из светлого кирпича с цоколем из камня, арочным окном и остеклённой верандой</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">1 этаж</span>
-                                <span class="tag">Веранда</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Частный дом (images/25.jpg) -->
-                    <div class="portfolio-item" data-category="residential private">
+                    <!-- Частный дом (images/new-projects/project-112.webp) -->
+                    <div class="portfolio-item" data-category="private">
                         <div class="portfolio-img">
-                            <img src="images/25.jpg" alt="Современный дом с панорамным остеклением">
+                            <img src="images/new-projects/project-112.webp" alt="Современный дом с панорамным остеклением">
                         </div>
                         <div class="portfolio-info">
                             <h3>Современный дом с панорамным остеклением</h3>
                             <p>Двухэтажный дом из светлого кирпича с панорамными окнами, тёмной кровлей и отдельным гаражом</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Частный</span>
-                                <span class="tag">2 этажа</span>
-                                <span class="tag">Современный</span>
+                                <span class="tag">Частные дома</span>
                             </div>
                         </div>
                     </div>
                                         
-                    <div class="portfolio-item" data-category="commercial">
+                    <div class="portfolio-item" data-category="public">
                         <div class="portfolio-img">
-                            <img src="images/9.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-106.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Торгово-офисное здание</h3>
                             <p>Стильное современное офисное здание</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Коммерческие</span>
+                                <span class="tag">Общественные</span>
                             </div>
                         </div>
                     </div>
                                         
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/8.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-082.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Жилые дома</h3>
                             <p>Многоквартирные жилые дома</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                                         
-                    <div class="portfolio-item" data-category="residential commercial">
+                    <div class="portfolio-item" data-category="residential public">
                         <div class="portfolio-img">
-                            <img src="images/10.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-111.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Комплекс современных домов</h3>
                             <p>Многоквартирные жилые дома со встроенными помещениями коммерческого назначения в п. Российском</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
-                                <span class="tag">Коммерческие</span>
+                                <span class="tag">Многоквартирные</span>
+                                <span class="tag">Общественные</span>
                             </div>
                         </div>
                     </div>
                                         
-                    <div class="portfolio-item" data-category="commercial">
+                    <div class="portfolio-item" data-category="public">
                         <div class="portfolio-img">
-                            <img src="images/11.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-019.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Автосалон</h3>
                             <p>На ул. Взлетная 2/6</p>
+                            
+
                             <div class="portfolio-tags">
-                                <span class="tag">Коммерческие</span>
+                                <span class="tag">Общественные</span>
                             </div>
                         </div>
                     </div>
                                         
                     <div class="portfolio-item" data-category="residential">
                         <div class="portfolio-img">
-                            <img src="images/12.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-001.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Жилой комплекс "Облака -2"</h3>
                             <p>Жилой комплекс "Облака -2" в г. Новороссийск, ул. Куникова, 47. Заказчик: Неометрия, 2023-2024 годы</p>
                             <div class="portfolio-tags">
-                                <span class="tag">Жилые</span>
-                                <span class="tag">Комплекс</span>
+                                <span class="tag">Многоквартирные</span>
                             </div>
                         </div>
                     </div>
                                         
                     <div class="portfolio-item" data-category="social">
                         <div class="portfolio-img">
-                            <img src="images/13.jpg" alt="Интерьер апартаментов">
+                            <img src="images/new-projects/project-040.webp" alt="Интерьер апартаментов">
                         </div>
                         <div class="portfolio-info">
                             <h3>Дошкольная образовательная организация на 300 мест</h3>
                             <p>п. Березовый, ул. им. Профессора Малигонова, Березовый сельский округ МО г. Краснодар. Заказчик: ООО "Специализированный застройщик "Молодежный-2" 2024-2025 гг</p>
+                            
+
                             <div class="portfolio-tags">
                                 <span class="tag">Социальные</span>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Новый проект: 1 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-001.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой комплекс с высотными корпусами">
+                                <img src="images/new-projects/project-001.webp" alt="Жилой комплекс с высотными корпусами" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой комплекс с высотными корпусами</h3>
+                            <p>Проект многоэтажной жилой застройки с двумя высотными корпусами и озеленённой территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 2 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-002.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Десятиэтажная жилая застройка">
+                                <img src="images/new-projects/project-002.webp" alt="Десятиэтажная жилая застройка" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Десятиэтажная жилая застройка</h3>
+                            <p>Современные десятиэтажные жилые дома с протяжёнными фасадами и благоустроенными пешеходными зонами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 3 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-003.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: 14-этажный дом «Кода»">
+                                <img src="images/new-projects/project-003.webp" alt="14-этажный дом «Кода»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>14-этажный дом «Кода»</h3>
+                            <p>Проект четырнадцатиэтажного жилого здания со светлыми фасадами, балконами и благоустроенным двором.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 4 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-004.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: 16-этажные дома на Карасунской">
+                                <img src="images/new-projects/project-004.webp" alt="16-этажные дома на Карасунской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>16-этажные дома на Карасунской</h3>
+                            <p>Высотные жилые корпуса с современной отделкой фасадов и озеленением придомовой территории.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 5 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-005.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка на участке 1,5 га">
+                                <img src="images/new-projects/project-005.webp" alt="Жилая застройка на участке 1,5 га" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка на участке 1,5 га</h3>
+                            <p>Концепция многоэтажного жилого комплекса с несколькими секциями и благоустройством территории.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 6 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-006.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Два частных дома на Кожедуба">
+                                <img src="images/new-projects/project-006.webp" alt="Два частных дома на Кожедуба" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Два частных дома на Кожедуба</h3>
+                            <p>Комплекс из двух двухэтажных домов с индивидуальными въездами, ограждением и общей архитектурой фасадов.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 8 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-008.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Трёхэтажный дом на Еременко">
+                                <img src="images/new-projects/project-008.webp" alt="Трёхэтажный дом на Еременко" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Трёхэтажный дом на Еременко</h3>
+                            <p>Трёхэтажный многоквартирный дом со светлыми фасадами, балконами и озеленённой прилегающей территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 10 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-010.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой дом на участке 40 соток">
+                                <img src="images/new-projects/project-010.webp" alt="Жилой дом на участке 40 соток" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой дом на участке 40 соток</h3>
+                            <p>Высотное жилое здание с выразительным остеклением, дворовым пространством и озеленением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 11 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-011.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка — седьмая очередь">
+                                <img src="images/new-projects/project-011.webp" alt="Жилая застройка — седьмая очередь" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка — седьмая очередь</h3>
+                            <p>Малоэтажный квартал с индивидуальными домами, внутренними проездами и зелёными участками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 12 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-012.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Восьмиэтажный дом в Славянске">
+                                <img src="images/new-projects/project-012.webp" alt="Восьмиэтажный дом в Славянске" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Восьмиэтажный дом в Славянске</h3>
+                            <p>Восьмиэтажное жилое здание с балконами, светлыми фасадами и благоустроенным окружением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 13 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-013.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Девятиэтажный жилой дом">
+                                <img src="images/new-projects/project-013.webp" alt="Девятиэтажный жилой дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Девятиэтажный жилой дом</h3>
+                            <p>Современное девятиэтажное здание с контрастной отделкой фасадов и остеклёнными балконами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 14 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-014.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Проект гостиницы">
+                                <img src="images/new-projects/project-014.webp" alt="Проект гостиницы" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Проект гостиницы</h3>
+                            <p>Четырёхэтажное гостиничное здание с современными фасадами, панорамным остеклением и входной группой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 15 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-015.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Проект ГИК на участке 9,2 га">
+                                <img src="images/new-projects/project-015.webp" alt="Проект ГИК на участке 9,2 га" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Проект ГИК на участке 9,2 га</h3>
+                            <p>Двухэтажное здание с панорамным остеклением и выразительным округлым фасадом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 16 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-016.webp&quot;,&quot;images/new-projects/project-017.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-016.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой комплекс «Авалон»">
+                                <img src="images/new-projects/project-016.webp" alt="Жилой комплекс «Авалон»" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой комплекс «Авалон»</h3>
+                            <p>Многоэтажная жилая застройка с несколькими корпусами, благоустроенными дворами и общественными пространствами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 18 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-018.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офис и автопарковка ГИК">
+                                <img src="images/new-projects/project-018.webp" alt="Офис и автопарковка ГИК" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офис и автопарковка ГИК</h3>
+                            <p>Невысокий комплекс с остеклённым офисным корпусом и автомобильной инфраструктурой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 20 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-020.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дача на Азовской">
+                                <img src="images/new-projects/project-020.webp" alt="Дача на Азовской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дача на Азовской</h3>
+                            <p>Загородный дом с двускатной кровлей, деревянной отделкой фасада и обустроенным участком.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 21 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-021.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой дом на Анапской">
+                                <img src="images/new-projects/project-021.webp" alt="Жилой дом на Анапской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой дом на Анапской</h3>
+                            <p>Проект многоэтажного жилого дома с выделенной входной группой и озеленённой территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 22 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-022.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом «Арман»">
+                                <img src="images/new-projects/project-022.webp" alt="Частный дом «Арман»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом «Арман»</h3>
+                            <p>Двухэтажный дом со светлыми фасадами, просторным балконом и индивидуальной парковкой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 23 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-023.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом «Арман», 200 м²">
+                                <img src="images/new-projects/project-023.webp" alt="Частный дом «Арман», 200 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом «Арман», 200 м²</h3>
+                            <p>Двухэтажный загородный дом с кирпичной отделкой, эркерами и благоустроенной придомовой территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 24 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-024.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом «Арман», 400 м²">
+                                <img src="images/new-projects/project-024.webp" alt="Частный дом «Арман», 400 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом «Арман», 400 м²</h3>
+                            <p>Одноэтажный просторный дом с протяжённым фасадом, крытой террасой и газоном.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 25 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-025.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Отель «Арман»">
+                                <img src="images/new-projects/project-025.webp" alt="Отель «Арман»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Отель «Арман»</h3>
+                            <p>Проект гостиничного здания с мансардными окнами, общей галереей и регулярным ритмом фасадов.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 26 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-026.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилые дома на Благородной">
+                                <img src="images/new-projects/project-026.webp" alt="Жилые дома на Благородной" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилые дома на Благородной</h3>
+                            <p>Ряд сблокированных двухэтажных домов с индивидуальными гаражами, входами и дворами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 27 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-027.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на Бородинской, 6">
+                                <img src="images/new-projects/project-027.webp" alt="Дом на Бородинской, 6" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на Бородинской, 6</h3>
+                            <p>Пятиэтажный жилой дом с кирпичной отделкой фасадов, балконами и озеленённым двором.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 28 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-028.webp&quot;,&quot;images/new-projects/project-029.webp&quot;,&quot;images/new-projects/project-030.webp&quot;,&quot;images/new-projects/project-031.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-028.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частные дома — подборка решений">
+                                <img src="images/new-projects/project-028.webp" alt="Частные дома — подборка решений" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частные дома — подборка решений</h3>
+                            <p>Несколько вариантов частных домов и навеса для автомобиля: разные планировки, фасады и варианты благоустройства.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 32 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-032.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Многоквартирный дом «ВГ4»">
+                                <img src="images/new-projects/project-032.webp" alt="Многоквартирный дом «ВГ4»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Многоквартирный дом «ВГ4»</h3>
+                            <p>Высотный жилой дом со светлой облицовкой, контрастными деталями фасада и благоустроенной территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 33 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-033.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание в Весёлом">
+                                <img src="images/new-projects/project-033.webp" alt="Здание в Весёлом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание в Весёлом</h3>
+                            <p>Современное протяжённое здание с остеклённым фасадом и лаконичной архитектурой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 34 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-034.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Вилла — шестая очередь">
+                                <img src="images/new-projects/project-034.webp" alt="Вилла — шестая очередь" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Вилла — шестая очередь</h3>
+                            <p>Двухэтажный загородный дом с панорамными окнами, балконом и местами для автомобилей.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 35 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-035.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Одноэтажный загородный дом">
+                                <img src="images/new-projects/project-035.webp" alt="Одноэтажный загородный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Одноэтажный загородный дом</h3>
+                            <p>Дом с вальмовой кровлей, крытой террасой и просторным зелёным участком.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 37 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-037.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой квартал «Времена года»">
+                                <img src="images/new-projects/project-037.webp" alt="Жилой квартал «Времена года»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой квартал «Времена года»</h3>
+                            <p>Концепция комплексной многоэтажной жилой застройки с внутренними дворами и системой проездов.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 38 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-038.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание в Горячем Ключе">
+                                <img src="images/new-projects/project-038.webp" alt="Здание в Горячем Ключе" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание в Горячем Ключе</h3>
+                            <p>Трёхэтажное здание с панорамным остеклением угловой части и благоустроенной входной зоной.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 39 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-039.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Гостиничное здание">
+                                <img src="images/new-projects/project-039.webp" alt="Гостиничное здание" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Гостиничное здание</h3>
+                            <p>Одноэтажное здание с арочными проёмами, просторной входной зоной и озеленением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 42 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-042.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Трёхэтажный частный дом">
+                                <img src="images/new-projects/project-042.webp" alt="Трёхэтажный частный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Трёхэтажный частный дом</h3>
+                            <p>Компактный дом с мансардным уровнем, скатной кровлей и светлым фасадом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 43 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-043.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом площадью 124 м²">
+                                <img src="images/new-projects/project-043.webp" alt="Частный дом площадью 124 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом площадью 124 м²</h3>
+                            <p>Загородный дом со скатной кровлей, верандой и просторным участком.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 44 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-044.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом в Фанагорийке">
+                                <img src="images/new-projects/project-044.webp" alt="Дом в Фанагорийке" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом в Фанагорийке</h3>
+                            <p>Кирпичный загородный дом с двусветной входной группой, высокой кровлей и панорамными окнами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 45 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-045.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Одноэтажный дом с гаражом">
+                                <img src="images/new-projects/project-045.webp" alt="Одноэтажный дом с гаражом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Одноэтажный дом с гаражом</h3>
+                            <p>Частный дом с кирпичной отделкой, пристроенным гаражом и благоустроенным подъездом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 46 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-046.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Современный трёхэтажный дом">
+                                <img src="images/new-projects/project-046.webp" alt="Современный трёхэтажный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Современный трёхэтажный дом</h3>
+                            <p>Частный дом с лаконичными белыми фасадами, плоской кровлей и встроенным гаражом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 47 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-047.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Большой загородный дом">
+                                <img src="images/new-projects/project-047.webp" alt="Большой загородный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Большой загородный дом</h3>
+                            <p>Просторный двухэтажный дом с террасами, панорамным остеклением и благоустроенной территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 48 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-048.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Многоквартирный дом с эркером">
+                                <img src="images/new-projects/project-048.webp" alt="Многоквартирный дом с эркером" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Многоквартирный дом с эркером</h3>
+                            <p>Жилой дом с декоративными элементами фасада, балконами и выразительной угловой секцией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 49 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-049.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом в 1-м Сормовском проезде">
+                                <img src="images/new-projects/project-049.webp" alt="Дом в 1-м Сормовском проезде" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом в 1-м Сормовском проезде</h3>
+                            <p>Двухэтажный дом со светло-кирпичными фасадами, балконом и парковочным местом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 50 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-050.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на 2-й Тихой">
+                                <img src="images/new-projects/project-050.webp" alt="Дом на 2-й Тихой" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на 2-й Тихой</h3>
+                            <p>Современный одноэтажный дом с плоской кровлей, панорамными окнами и навесом для автомобиля.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 51 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-051.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Загородный дом с высокой кровлей">
+                                <img src="images/new-projects/project-051.webp" alt="Загородный дом с высокой кровлей" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Загородный дом с высокой кровлей</h3>
+                            <p>Частный дом со светлой отделкой, высокой скатной кровлей и большим окном на главном фасаде.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 52 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-052.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Современный частный дом с плоской кровлей">
+                                <img src="images/new-projects/project-052.webp" alt="Современный частный дом с плоской кровлей" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Современный частный дом с плоской кровлей</h3>
+                            <p>Двухэтажный дом с сочетанием кирпичной и светлой отделки, крупными окнами и строгой геометрией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 53 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-053.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом с округлым эркером">
+                                <img src="images/new-projects/project-053.webp" alt="Дом с округлым эркером" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом с округлым эркером</h3>
+                            <p>Двухэтажный загородный дом с кирпичной облицовкой, округлым эркером и входной группой под аркой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 54 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-054.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Одноэтажный кирпичный дом">
+                                <img src="images/new-projects/project-054.webp" alt="Одноэтажный кирпичный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Одноэтажный кирпичный дом</h3>
+                            <p>Частный дом со светлыми фасадами, симметричной композицией окон и входным крыльцом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 55 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-055.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом с арочной входной группой">
+                                <img src="images/new-projects/project-055.webp" alt="Дом с арочной входной группой" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом с арочной входной группой</h3>
+                            <p>Двухэтажный дом с кирпичными стенами, крытой террасой и арочными проёмами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 56 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-056.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом с гаражом на два автомобиля">
+                                <img src="images/new-projects/project-056.webp" alt="Дом с гаражом на два автомобиля" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом с гаражом на два автомобиля</h3>
+                            <p>Двухэтажный загородный дом с широкими гаражными воротами, балконом и крупными окнами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 57 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-057.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на Ярославского, 71">
+                                <img src="images/new-projects/project-057.webp" alt="Дом на Ярославского, 71" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на Ярославского, 71</h3>
+                            <p>Компактный загородный дом с мансардой, кирпичной отделкой и крытой входной зоной.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 58 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-058.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Сблокированные жилые дома">
+                                <img src="images/new-projects/project-058.webp" alt="Сблокированные жилые дома" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Сблокированные жилые дома</h3>
+                            <p>Ряд двухэтажных дуплексов с индивидуальными входами, парковками и палисадниками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 59 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-059.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой дом на Есенина">
+                                <img src="images/new-projects/project-059.webp" alt="Жилой дом на Есенина" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой дом на Есенина</h3>
+                            <p>Многоквартирный жилой дом с мансардным уровнем, эркерами и благоустроенной территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 60 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-060.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на Жигуленко, 5">
+                                <img src="images/new-projects/project-060.webp" alt="Дом на Жигуленко, 5" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на Жигуленко, 5</h3>
+                            <p>Высотное жилое здание со светлыми фасадами, балконами и озеленением у входных групп.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 61 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-061.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: ЖК «Радуга»">
+                                <img src="images/new-projects/project-061.webp" alt="ЖК «Радуга»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>ЖК «Радуга»</h3>
+                            <p>Жилой комплекс из нескольких высотных корпусов с общим двором и благоустроенной прилегающей территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 62 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-062.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка на Западном обходе, 38">
+                                <img src="images/new-projects/project-062.webp" alt="Жилая застройка на Западном обходе, 38" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка на Западном обходе, 38</h3>
+                            <p>Многосекционный комплекс жилых домов с общими дворами, проездами и озеленением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 63 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-063.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой комплекс «Звезда»">
+                                <img src="images/new-projects/project-063.webp" alt="Жилой комплекс «Звезда»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой комплекс «Звезда»</h3>
+                            <p>Высотные жилые корпуса с благоустроенными дворами, игровыми зонами и озеленением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 64 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-064.webp&quot;,&quot;images/new-projects/project-065.webp&quot;,&quot;images/new-projects/project-066.webp&quot;,&quot;images/new-projects/project-067.webp&quot;,&quot;images/new-projects/project-068.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-064.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частные дома в Знаменском">
+                                <img src="images/new-projects/project-064.webp" alt="Частные дома в Знаменском" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частные дома в Знаменском</h3>
+                            <p>Серия проектов двухэтажных загородных домов с кирпичными фасадами, индивидуальными въездами и благоустройством.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 69 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-069.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание «Ибис»">
+                                <img src="images/new-projects/project-069.webp" alt="Здание «Ибис»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание «Ибис»</h3>
+                            <p>Высотное здание с лаконичной архитектурой, угловым остеклением и оформленной входной группой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 70 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-070.webp&quot;,&quot;images/new-projects/project-071.webp&quot;,&quot;images/new-projects/project-072.webp&quot;,&quot;images/new-projects/project-073.webp&quot;,&quot;images/new-projects/project-074.webp&quot;,&quot;images/new-projects/project-075.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-070.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дуплексы — серия проектов">
+                                <img src="images/new-projects/project-070.webp" alt="Дуплексы — серия проектов" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дуплексы — серия проектов</h3>
+                            <p>Подборка архитектурных решений для сблокированных двухэтажных домов с индивидуальными входами и придомовыми участками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 76 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-076.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Коммерческое здание «Арман»">
+                                <img src="images/new-projects/project-076.webp" alt="Коммерческое здание «Арман»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Коммерческое здание «Арман»</h3>
+                            <p>Одноэтажное торгово-офисное здание с панорамными витринами и протяжённым фасадом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 77 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-077.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Классический дом на Затонной">
+                                <img src="images/new-projects/project-077.webp" alt="Классический дом на Затонной" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Классический дом на Затонной</h3>
+                            <p>Загородный дом с декоративной лепниной, арочными окнами и выразительной входной лестницей.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 78 -->
+                    <div class="portfolio-item" data-category="residential public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-078.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой комплекс «КИНО»">
+                                <img src="images/new-projects/project-078.webp" alt="Жилой комплекс «КИНО»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой комплекс «КИНО»</h3>
+                            <p>Современный многосекционный жилой комплекс с общественными помещениями на первых этажах.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 79 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-079.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Комплекс на Кирилла Россинского">
+                                <img src="images/new-projects/project-079.webp" alt="Комплекс на Кирилла Россинского" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Комплекс на Кирилла Россинского</h3>
+                            <p>Жилой комплекс из нескольких корпусов с внутренним двором, озеленением и пешеходными дорожками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 80 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-080.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание на Кисляковской">
+                                <img src="images/new-projects/project-080.webp" alt="Здание на Кисляковской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание на Кисляковской</h3>
+                            <p>Одноэтажное здание с колоннадой, широкими оконными проёмами и симметричным фасадом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 81 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-081.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание «Кода» на Северных Коммунаров">
+                                <img src="images/new-projects/project-081.webp" alt="Здание «Кода» на Северных Коммунаров" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание «Кода» на Северных Коммунаров</h3>
+                            <p>Архитектурный облик городского здания с подсветкой фасадов и выразительной входной группой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 82 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-082.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилые дома на Кореновской">
+                                <img src="images/new-projects/project-082.webp" alt="Жилые дома на Кореновской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилые дома на Кореновской</h3>
+                            <p>Комплекс многоэтажных жилых домов со светлыми фасадами и озеленённой территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 83 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-083.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на Куликова Поля, 15">
+                                <img src="images/new-projects/project-083.webp" alt="Дом на Куликова Поля, 15" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на Куликова Поля, 15</h3>
+                            <p>Малоэтажный жилой дом с мансардой, балконами и дворовой детской площадкой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 84 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-084.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Два частных дома с гаражами">
+                                <img src="images/new-projects/project-084.webp" alt="Два частных дома с гаражами" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Два частных дома с гаражами</h3>
+                            <p>Индивидуальные дома со скатными кровлями, ограждениями и отдельными въездами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 85 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-085.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка на Лиговском">
+                                <img src="images/new-projects/project-085.webp" alt="Жилая застройка на Лиговском" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка на Лиговском</h3>
+                            <p>Протяжённый многоквартирный дом с остеклёнными балконами и обустроенной придомовой территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 86 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-086.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Торговое здание «Магнит»">
+                                <img src="images/new-projects/project-086.webp" alt="Торговое здание «Магнит»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Торговое здание «Магнит»</h3>
+                            <p>Торговый объект с современным фасадом, остеклённой входной частью и парковкой для посетителей.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 87 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-087.webp&quot;,&quot;images/new-projects/project-088.webp&quot;,&quot;images/new-projects/project-089.webp&quot;,&quot;images/new-projects/project-090.webp&quot;,&quot;images/new-projects/project-091.webp&quot;,&quot;images/new-projects/project-092.webp&quot;,&quot;images/new-projects/project-093.webp&quot;,&quot;images/new-projects/project-094.webp&quot;,&quot;images/new-projects/project-095.webp&quot;,&quot;images/new-projects/project-096.webp&quot;,&quot;images/new-projects/project-097.webp&quot;,&quot;images/new-projects/project-098.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-087.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Многоэтажная жилая застройка — подборка">
+                                <img src="images/new-projects/project-087.webp" alt="Многоэтажная жилая застройка — подборка" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Многоэтажная жилая застройка — подборка</h3>
+                            <p>Галерея архитектурных решений высотных жилых домов: от отдельных корпусов до крупных жилых комплексов.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 99 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-099.webp&quot;,&quot;images/new-projects/project-100.webp&quot;,&quot;images/new-projects/project-101.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-099.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Проекты жилых домов на Московской">
+                                <img src="images/new-projects/project-099.webp" alt="Проекты жилых домов на Московской" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Проекты жилых домов на Московской</h3>
+                            <p>Подборка архитектурных решений многоквартирных домов с современными фасадами и озеленением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 102 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-102.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом с балконом">
+                                <img src="images/new-projects/project-102.webp" alt="Частный дом с балконом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом с балконом</h3>
+                            <p>Двухэтажный кирпичный дом со скатной кровлей, балконом и огороженным участком.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 103 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-103.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание общественного назначения">
+                                <img src="images/new-projects/project-103.webp" alt="Здание общественного назначения" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание общественного назначения</h3>
+                            <p>Современное одноэтажное здание с большими витражными окнами и выразительной входной зоной.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 104 -->
+                    <div class="portfolio-item" data-category="residential public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-104.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Комплекс «ГИК» с офисными помещениями">
+                                <img src="images/new-projects/project-104.webp" alt="Комплекс «ГИК» с офисными помещениями" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Комплекс «ГИК» с офисными помещениями</h3>
+                            <p>Два высотных корпуса с выразительными фасадами и помещениями общественного назначения на первых этажах.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 105 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-105.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Гостиница в Анапе">
+                                <img src="images/new-projects/project-105.webp" alt="Гостиница в Анапе" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Гостиница в Анапе</h3>
+                            <p>Проект гостиничного комплекса с волнообразными фасадами, большими террасами и панорамным остеклением.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 106 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-106.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офисное здание площадью 1000 м²">
+                                <img src="images/new-projects/project-106.webp" alt="Офисное здание площадью 1000 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офисное здание площадью 1000 м²</h3>
+                            <p>Современное четырёхэтажное офисное здание с крупными окнами и выделенной входной группой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 107 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-107.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офисное здание на Взлётной">
+                                <img src="images/new-projects/project-107.webp" alt="Офисное здание на Взлётной" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офисное здание на Взлётной</h3>
+                            <p>Двухэтажное офисное здание с панорамным остеклением и современной прямоугольной архитектурой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 108 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-108.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офис на Кожевина, 70">
+                                <img src="images/new-projects/project-108.webp" alt="Офис на Кожевина, 70" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офис на Кожевина, 70</h3>
+                            <p>Концепция офисного здания со стеклянным фасадом и благоустройством прилегающей территории.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 109 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-109.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка на Метальникова">
+                                <img src="images/new-projects/project-109.webp" alt="Жилая застройка на Метальникова" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка на Метальникова</h3>
+                            <p>Многосекционный жилой комплекс с общественными пространствами, озеленением и детскими площадками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 110 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-110.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Парковочный комплекс «ВГ2»">
+                                <img src="images/new-projects/project-110.webp" alt="Парковочный комплекс «ВГ2»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Парковочный комплекс «ВГ2»</h3>
+                            <p>Проект одноэтажного парковочного пространства с открытой планировкой и лёгким современным навесом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 111 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-111.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дома на участке 5000 м²">
+                                <img src="images/new-projects/project-111.webp" alt="Дома на участке 5000 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дома на участке 5000 м²</h3>
+                            <p>Проект группы загородных домов с современными фасадами и общей подъездной дорогой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 112 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img project-photo-slider" data-images="[&quot;images/new-projects/project-112.webp&quot;,&quot;images/new-projects/project-113.webp&quot;,&quot;images/new-projects/project-114.webp&quot;]">
+                            <a class="project-photo-link" href="images/new-projects/project-112.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Элитные частные дома — варианты">
+                                <img src="images/new-projects/project-112.webp" alt="Элитные частные дома — варианты" loading="lazy" decoding="async">
+                            </a>
+                                                    <button type="button" class="project-slider-arrow prev" aria-label="Предыдущее изображение">&#10094;</button>
+                            <button type="button" class="project-slider-arrow next" aria-label="Следующее изображение">&#10095;</button>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Элитные частные дома — варианты</h3>
+                            <p>Подборка архитектурных решений загородных домов с террасами, выразительными фасадами и благоустройством.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>
+
+                            </div>
+                    </div>
+                    <!-- Новый проект: 115 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-115.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дома на Пригородной, 33">
+                                <img src="images/new-projects/project-115.webp" alt="Дома на Пригородной, 33" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дома на Пригородной, 33</h3>
+                            <p>Группа двухэтажных сблокированных домов с собственными въездами и оформленными участками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 116 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-116.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Таунхаусы на Пригородной">
+                                <img src="images/new-projects/project-116.webp" alt="Таунхаусы на Пригородной" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Таунхаусы на Пригородной</h3>
+                            <p>Линия малоэтажных жилых домов с отдельными входами, парковочными местами и общим проездом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 117 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-117.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом на Ришельевской">
+                                <img src="images/new-projects/project-117.webp" alt="Дом на Ришельевской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом на Ришельевской</h3>
+                            <p>Двухэтажный дом со светло-кирпичными фасадами, балконом и навесом над входом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 118 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-118.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Таунхаусы «Росс-Тур»">
+                                <img src="images/new-projects/project-118.webp" alt="Таунхаусы «Росс-Тур»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Таунхаусы «Росс-Тур»</h3>
+                            <p>Серия двухэтажных сблокированных домов с кирпичной отделкой и индивидуальными парковочными местами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 119 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-119.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Салон красоты">
+                                <img src="images/new-projects/project-119.webp" alt="Салон красоты" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Салон красоты</h3>
+                            <p>Проект трёхэтажного здания с остеклённым фасадом и оформленной входной группой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 120 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-120.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офисное здание «Арман»">
+                                <img src="images/new-projects/project-120.webp" alt="Офисное здание «Арман»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офисное здание «Арман»</h3>
+                            <p>Двухэтажное офисное здание с панорамным остеклением, светлой облицовкой и строгой геометрией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 121 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-121.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилая застройка на Сахалинской">
+                                <img src="images/new-projects/project-121.webp" alt="Жилая застройка на Сахалинской" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилая застройка на Сахалинской</h3>
+                            <p>Квартал многоквартирных домов со скатными кровлями, озеленением и дворовыми проездами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 122 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-122.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Современный частный дом">
+                                <img src="images/new-projects/project-122.webp" alt="Современный частный дом" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Современный частный дом</h3>
+                            <p>Двухэтажный загородный дом со светлыми фасадами, панорамными окнами и небольшим крыльцом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 123 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-123.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Таунхаусы на Серебристой">
+                                <img src="images/new-projects/project-123.webp" alt="Таунхаусы на Серебристой" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Таунхаусы на Серебристой</h3>
+                            <p>Ряд малоэтажных блокированных домов с отдельными входами, гаражами и скатными кровлями.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 124 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-124.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Офисное здание на Почтовой">
+                                <img src="images/new-projects/project-124.webp" alt="Офисное здание на Почтовой" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Офисное здание на Почтовой</h3>
+                            <p>Трёхэтажное офисное здание с кирпичной облицовкой и стеклянными фасадами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 125 -->
+                    <div class="portfolio-item" data-category="residential public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-125.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание в Сочи на Калараша">
+                                <img src="images/new-projects/project-125.webp" alt="Здание в Сочи на Калараша" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание в Сочи на Калараша</h3>
+                            <p>Многоэтажное здание с панорамным остеклением и помещениями общественного назначения на нижних этажах.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 127 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-127.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Двухэтажная станция техобслуживания">
+                                <img src="images/new-projects/project-127.webp" alt="Двухэтажная станция техобслуживания" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Двухэтажная станция техобслуживания</h3>
+                            <p>Автосервисное здание со стеклянным входом, помещениями для автомобилей и фирменным оформлением фасада.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 128 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-128.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Таунхаусы «Арман»">
+                                <img src="images/new-projects/project-128.webp" alt="Таунхаусы «Арман»" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Таунхаусы «Арман»</h3>
+                            <p>Комплекс двухэтажных сблокированных домов с отдельными входами, небольшими участками и местами для автомобилей.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 129 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-129.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Торговый центр площадью 5000 м²">
+                                <img src="images/new-projects/project-129.webp" alt="Торговый центр площадью 5000 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Торговый центр площадью 5000 м²</h3>
+                            <p>Проект одноэтажного торгового комплекса с панорамными витринами, протяжённым фасадом и парковкой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 130 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-130.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Малоэтажный квартал на улице Роз">
+                                <img src="images/new-projects/project-130.webp" alt="Малоэтажный квартал на улице Роз" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Малоэтажный квартал на улице Роз</h3>
+                            <p>Группа сблокированных жилых домов с единым архитектурным стилем и благоустроенным внутренним пространством.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 131 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-131.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилые дома на Героев-Разведчиков">
+                                <img src="images/new-projects/project-131.webp" alt="Жилые дома на Героев-Разведчиков" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилые дома на Героев-Разведчиков</h3>
+                            <p>Многосекционный жилой комплекс с современными фасадами и внутренними дворами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 132 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-132.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Квартал домов на участке 40 × 50 м">
+                                <img src="images/new-projects/project-132.webp" alt="Квартал домов на участке 40 × 50 м" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Квартал домов на участке 40 × 50 м</h3>
+                            <p>Малоэтажная застройка с индивидуальными домами, собственными дворами и общей проездной зоной.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 133 -->
+                    <div class="portfolio-item" data-category="public">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-133.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Фитнес-центр в КМР">
+                                <img src="images/new-projects/project-133.webp" alt="Фитнес-центр в КМР" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Фитнес-центр в КМР</h3>
+                            <p>Современный спортивный комплекс с панорамным остеклением и благоустроенной территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Общественные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 134 -->
+                    <div class="portfolio-item" data-category="social">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-134.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание церкви в ФМР">
+                                <img src="images/new-projects/project-134.webp" alt="Здание церкви в ФМР" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание церкви в ФМР</h3>
+                            <p>Проект культового здания с арочными окнами, декоративным фасадом и центральным входом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Социальные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 135 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-135.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой дом на Цветной, 45–47">
+                                <img src="images/new-projects/project-135.webp" alt="Жилой дом на Цветной, 45–47" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой дом на Цветной, 45–47</h3>
+                            <p>Многоквартирный жилой дом со светлыми фасадами, балконами и современным архитектурным обликом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 136 -->
+                    <div class="portfolio-item" data-category="social">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-136.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание церкви площадью 500 м²">
+                                <img src="images/new-projects/project-136.webp" alt="Здание церкви площадью 500 м²" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание церкви площадью 500 м²</h3>
+                            <p>Современное культовое здание с лаконичными фасадами и большими окнами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Социальные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 137 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-137.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Частный дом в кирпичном стиле">
+                                <img src="images/new-projects/project-137.webp" alt="Частный дом в кирпичном стиле" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Частный дом в кирпичном стиле</h3>
+                            <p>Двухэтажный загородный дом со скатной кровлей, контрастной кирпичной отделкой и уютным крыльцом.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 138 -->
+                    <div class="portfolio-item" data-category="social">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-138.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Здание на Черкасской, 44">
+                                <img src="images/new-projects/project-138.webp" alt="Здание на Черкасской, 44" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Здание на Черкасской, 44</h3>
+                            <p>Одноэтажное здание с панорамными окнами и благоустроенной прилегающей территорией.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Социальные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 139 -->
+                    <div class="portfolio-item" data-category="private">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-139.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Дом в стиле шале">
+                                <img src="images/new-projects/project-139.webp" alt="Дом в стиле шале" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Дом в стиле шале</h3>
+                            <p>Двухэтажный загородный дом с каменной и деревянной отделкой, широкими свесами кровли и террасой.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Частные дома</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 140 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-140.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: Жилой комплекс на Нефтяном шоссе">
+                                <img src="images/new-projects/project-140.webp" alt="Жилой комплекс на Нефтяном шоссе" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Жилой комплекс на Нефтяном шоссе</h3>
+                            <p>Протяжённый многоквартирный жилой дом со светлыми фасадами и остеклёнными балконами.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
+                    </div>
+                    <!-- Новый проект: 141 -->
+                    <div class="portfolio-item" data-category="residential">
+                        <div class="portfolio-img">
+                            <a href="images/new-projects/project-141.webp" target="_blank" rel="noopener" aria-label="Открыть изображение: 24-этажный жилой дом на Полуяна">
+                                <img src="images/new-projects/project-141.webp" alt="24-этажный жилой дом на Полуяна" loading="lazy" decoding="async">
+                            </a>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>24-этажный жилой дом на Полуяна</h3>
+                            <p>Высотный жилой комплекс с несколькими секциями, благоустроенной территорией и детскими площадками.</p>
+                            <div class="portfolio-tags">
+                                <span class="tag">Многоквартирные</span>
+                            </div>                        </div>
                     </div>
                 </div>
             </div>
@@ -2349,6 +3927,21 @@
         const savedPage = localStorage.getItem('currentPage') || 'home';
         showPage(savedPage);
         
+        // Переключаем только большие изображения в карточках с несколькими ракурсами.
+        document.querySelectorAll('.project-photo-slider').forEach(slider => {
+            const images = JSON.parse(slider.dataset.images);
+            const image = slider.querySelector('.project-photo-link img');
+            const link = slider.querySelector('.project-photo-link');
+            let current = 0;
+            slider.querySelectorAll('.project-slider-arrow').forEach(button => {
+                button.addEventListener('click', () => {
+                    current = (current + (button.classList.contains('next') ? 1 : -1) + images.length) % images.length;
+                    image.src = images[current];
+                    link.href = images[current];
+                });
+            });
+        });
+
         // Фильтрация портфолио с поддержкой нескольких категорий
         const filterBtns = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
