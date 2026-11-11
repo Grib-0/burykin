@@ -1685,6 +1685,177 @@
             }
         }
 
+        /* ПЕРЕКЛЮЧАТЕЛЬ ВИДА ПРОЕКТОВ */
+
+        .project-view-switcher {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: -25px 0 25px;
+            font-size: 14px;
+            color: var(--color-dark);
+        }
+
+        .project-view-buttons {
+            display: flex;
+            gap: 5px;
+            padding: 4px;
+            border-radius: 10px;
+            background: var(--color-light-gray);
+        }
+
+        .project-view-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 13px;
+            border: none;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--color-dark);
+            font: inherit;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .project-view-btn.active {
+            background: var(--color-primary);
+            color: #ffffff;
+        }
+
+        .project-view-btn:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 3px;
+        }
+
+        /* КРУПНЫЕ КАРТОЧКИ */
+
+        #portfolio-page .portfolio-grid.view-wide {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* КОМПАКТНЫЙ ВИД КАК PINTEREST */
+
+        #portfolio-page .portfolio-grid.view-compact {
+            display: block;
+            column-count: 4;
+            column-gap: 16px;
+        }
+
+        #portfolio-page .view-compact .portfolio-item {
+            display: inline-block;
+            vertical-align: top;
+            width: 100%;
+            margin-bottom: 16px;
+            break-inside: avoid;
+            -webkit-column-break-inside: avoid;
+        }
+
+        #portfolio-page .view-compact .portfolio-img {
+            height: auto;
+        }
+
+        #portfolio-page .view-compact .portfolio-img img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        #portfolio-page .view-compact .portfolio-info {
+            padding: 12px;
+        }
+
+        #portfolio-page .view-compact .portfolio-info h3 {
+            font-size: 0.95rem;
+            line-height: 1.35;
+        }
+
+        #portfolio-page .view-compact .portfolio-info p {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            overflow: hidden;
+        }
+
+        #portfolio-page .view-compact .portfolio-tags {
+            gap: 5px;
+        }
+
+        #portfolio-page .view-compact .tag {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+
+        /* ПЛАНШЕТЫ */
+
+        @media (min-width: 577px) and (max-width: 1024px) {
+            #portfolio-page .portfolio-grid.view-compact {
+                column-count: 3;
+            }
+        }
+
+        /* ТЕЛЕФОНЫ */
+
+        @media (max-width: 576px) {
+
+            .project-view-switcher {
+                justify-content: space-between;
+                margin: -15px 0 25px;
+                gap: 8px;
+                font-size: 12px;
+            }
+
+            .project-view-btn {
+                font-size: 11px;
+                padding: 8px 10px;
+                gap: 5px;
+            }
+
+            /* Один проект на строку */
+            #portfolio-page .portfolio-grid.view-wide {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 22px;
+            }
+
+            /* Два проекта на строку */
+            #portfolio-page .portfolio-grid.view-compact {
+                column-count: 2;
+                column-gap: 10px;
+            }
+
+            #portfolio-page .view-compact .portfolio-item {
+                margin-bottom: 10px;
+            }
+
+            #portfolio-page .view-compact .portfolio-info {
+                padding: 9px;
+            }
+
+            #portfolio-page .view-compact .portfolio-info h3 {
+                font-size: 0.78rem;
+            }
+
+            #portfolio-page .view-compact .portfolio-info p {
+                font-size: 0.7rem;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+            }
+
+            #portfolio-page .view-compact .tag {
+                font-size: 0.62rem;
+                padding: 3px 6px;
+            }
+        }
+
         /* Перелистывание нескольких изображений проекта без миниатюр в описании */
         .portfolio-img a { display: block; width: 100%; height: 100%; }
         .project-photo-slider { position: relative; }
@@ -1932,8 +2103,31 @@
                     <button class="filter-btn" data-filter="social">Социальные</button>
                 </div>
                 
+                <!-- Выбор отображения проектов -->
+                <div class="project-view-switcher">
+                    <span>Вид проектов:</span>
+
+                    <div class="project-view-buttons">
+                        <button type="button"
+                                class="project-view-btn active"
+                                data-view="wide"
+                                aria-pressed="true">
+                            <i class="fas fa-square"></i>
+                            <span>Крупно</span>
+                        </button>
+
+                        <button type="button"
+                                class="project-view-btn"
+                                data-view="compact"
+                                aria-pressed="false">
+                            <i class="fas fa-th-large"></i>
+                            <span>Компактно</span>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Сетка портфолио -->
-                <div class="portfolio-grid">
+                <div class="portfolio-grid view-wide" id="projectsGrid">
                     <!-- Проект 1 -->
                     <div class="portfolio-item" data-category="residential public">
                         <div class="portfolio-img">
@@ -4274,6 +4468,69 @@
             mailLink.click();
             mailLink.remove();
         });
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const grid = document.getElementById('projectsGrid');
+
+            const buttons = document.querySelectorAll(
+                '.project-view-btn'
+            );
+
+            if (!grid || !buttons.length) return;
+
+            // Восстанавливаем сохранённый режим
+            let savedView = 'wide';
+
+            try {
+                savedView = localStorage.getItem('projectView') || 'wide';
+            } catch (error) {
+                // Если сохранение запрещено, используем обычный вид
+            }
+
+            function setProjectView(view) {
+
+                if (view !== 'compact') view = 'wide';
+
+                grid.classList.remove(
+                    'view-wide',
+                    'view-compact'
+                );
+
+                grid.classList.add('view-' + view);
+
+                buttons.forEach(button => {
+
+                    const active =
+                        button.dataset.view === view;
+
+                    button.classList.toggle('active', active);
+
+                    button.setAttribute(
+                        'aria-pressed',
+                        String(active)
+                    );
+                });
+
+                // Запоминаем выбор посетителя
+                try {
+                    localStorage.setItem('projectView', view);
+                } catch (error) {
+                    // Сайт продолжит работать без сохранения
+                }
+            }
+
+            buttons.forEach(button => {
+
+                button.addEventListener('click', () => {
+                    setProjectView(button.dataset.view);
+                });
+
+            });
+
+            setProjectView(savedView);
+
+        });
+
     </script> 
 </body>
 </html>
